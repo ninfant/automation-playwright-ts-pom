@@ -1,0 +1,26 @@
+{
+  "name": "automation-playwright-ts-pom",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript automation demo with POM and Slack alerts",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/saucedemo-login.spec.ts",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "smoke:alert": "node scripts/run-and-alert.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^26.1.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.1"
+  }
+}

@@ -10,5 +10,5 @@ node_modules
 .env.production
 playwright-report
 test-results
-screenshots/
-*.tmp.png
+after-success.png
+before-failure.png

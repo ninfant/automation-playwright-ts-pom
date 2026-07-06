@@ -24,8 +24,8 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Run smoke tests
-        run: npm run test:smoke
+      - name: Run end-to-end test suite
+        run: npm test
 
       - name: Upload Playwright report
         if: always()

@@ -22,6 +22,10 @@ export class InventoryPage {
     );
   }
 
+  async openCart(): Promise<void> {
+    await this.page.getByTestId("shopping-cart-link").click();
+  }
+
   async openMenu(): Promise<void> {
     await this.page.getByRole("button", { name: "Open Menu" }).click();
   }

@@ -2,7 +2,7 @@ import { exec } from "child_process";
 import { sendSlackAlert } from "../utils/slack.js";
 
 exec(
-  "npx playwright test tests/saucedemo-login.spec.ts",
+  "npx playwright test --grep @smoke --project=chromium",
   async (error, stdout, stderr) => {
     console.log(stdout);
     console.error(stderr);

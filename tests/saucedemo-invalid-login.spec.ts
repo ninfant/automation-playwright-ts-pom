@@ -1,13 +1,19 @@
-import { test } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { invalidCredentials } from "../utils/test-data";
+import { test } from "./fixtures";
+import { loginScenarios } from "../utils/test-data";
 
-test("SauceDemo invalid login shows error message", async ({ page }) => {
-  const loginPage = new LoginPage(page);
+for (const scenario of loginScenarios) {
+  test(`@regression SauceDemo login scenario: ${scenario.name}`, async ({
+    loginPage,
+    inventoryPage,
+  }) => {
+    await loginPage.goto();
+    await loginPage.login(scenario.username, scenario.password);
 
-  await loginPage.goto();
-  await loginPage.login(invalidCredentials.username, invalidCredentials.password);
-  await loginPage.expectLoginErrorContains(
-    "Username and password do not match any user",
-  );
-});
+    if (scenario.shouldLoginSucceed) {
+      await inventoryPage.expectLoaded();
+      return;
+    }
+
+    await loginPage.expectLoginErrorContains(scenario.expectedErrorText);
+  });
+}

@@ -22,10 +22,15 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps
 
-      - name: Run end-to-end test suite
-        run: npm test
+      - name: Run smoke suite on pull requests
+        if: github.event_name == 'pull_request'
+        run: npm run test:smoke
+
+      - name: Run regression suite on pushes
+        if: github.event_name == 'push'
+        run: npm run test:regression:all-browsers
 
       - name: Upload Playwright report
         if: always()

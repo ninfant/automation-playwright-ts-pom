@@ -1,18 +1,12 @@
-import { expect, test } from "@playwright/test";
-import { InventoryPage } from "../pages/InventoryPage";
-import { LoginPage } from "../pages/LoginPage";
-import { credentials } from "../utils/test-data";
+import { expect, test } from "./fixtures";
 
-test("SauceDemo logout flow", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const inventoryPage = new InventoryPage(page);
-
-  await loginPage.goto();
-  await loginPage.login(credentials.username, credentials.password);
-
-  await inventoryPage.expectLoaded();
+test("@smoke @regression SauceDemo logout flow", async ({
+  authenticatedPage,
+  inventoryPage,
+}) => {
+  await authenticatedPage.waitForLoadState("domcontentloaded");
   await inventoryPage.logout();
 
-  await expect(page).toHaveURL(/saucedemo\.com\/?$/);
-  await expect(page.getByTestId("login-button")).toBeVisible();
+  await expect(authenticatedPage).toHaveURL(/saucedemo\.com\/?$/);
+  await expect(authenticatedPage.getByTestId("login-button")).toBeVisible();
 });

@@ -1,5 +1,7 @@
 # Playwright TypeScript POM Portfolio Project
 
+[![Playwright Tests](https://github.com/ninfant/automation-playwright-ts-pom/actions/workflows/playwright.yml/badge.svg)](https://github.com/ninfant/automation-playwright-ts-pom/actions/workflows/playwright.yml)
+
 End-to-end QA automation project for SauceDemo using Playwright, TypeScript, and Page Object Model (POM).  
 The goal is to demonstrate maintainable test architecture, CI execution, and practical failure debugging.
 
@@ -25,7 +27,14 @@ The goal is to demonstrate maintainable test architecture, CI execution, and pra
 - **Specs for readability:** business scenarios stay clean in `tests/`
 - **Shared test data:** reusable credentials and checkout data in `utils/test-data.ts`
 - **Failure diagnostics:** screenshot and trace are retained on failed tests
-- **Fast feedback:** CI runs the full suite on every push/PR
+- **Fast feedback:** CI runs smoke checks on PRs and broader regression on pushes
+
+## Test Strategy and Execution Model
+
+- **Tags by intent:** `@smoke` for critical fast checks, `@regression` for broader coverage
+- **Cross-browser capability:** configured projects for Chromium, Firefox, and WebKit
+- **Local default stability:** main scripts target Chromium for fast and reliable iteration
+- **CI split by event:** pull requests run smoke, pushes run regression across all browsers
 
 ## Project Structure
 
@@ -73,7 +82,12 @@ The goal is to demonstrate maintainable test architecture, CI execution, and pra
 
 ## Useful Commands
 
-- `npm run test:smoke`: run login smoke only
+- `npm test`: run full tagged suite on Chromium (local default)
+- `npm run test:all-browsers`: run all tests on Chromium, Firefox, and WebKit
+- `npm run test:smoke`: run `@smoke` tests on Chromium
+- `npm run test:smoke:all-browsers`: run `@smoke` tests on all browsers
+- `npm run test:regression`: run `@regression` tests on Chromium
+- `npm run test:regression:all-browsers`: run `@regression` tests on all browsers
 - `npm run test:headed`: run all tests in headed mode
 - `npm run test:ui`: run tests with Playwright UI mode
 - `npm run test:debug`: run debug mode for step-by-step inspection
@@ -99,5 +113,6 @@ The alert is triggered only when the smoke test fails.
 ## Portfolio Evidence
 
 - CI workflow: `.github/workflows/playwright.yml`
+- Tagged execution model: smoke on PRs, cross-browser regression on pushes
 - Example screenshots: `after-success.png`, `before-failure.png`
 - Scalable test architecture: page objects + reusable test data + isolated specs

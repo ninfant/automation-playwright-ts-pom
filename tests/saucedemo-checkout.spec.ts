@@ -1,20 +1,13 @@
-import { test } from "@playwright/test";
-import { CartPage } from "../pages/CartPage";
-import { CheckoutPage } from "../pages/CheckoutPage";
-import { InventoryPage } from "../pages/InventoryPage";
-import { LoginPage } from "../pages/LoginPage";
-import { checkoutData, credentials } from "../utils/test-data";
+import { test } from "./fixtures";
+import { checkoutData } from "../utils/test-data";
 
-test("SauceDemo complete checkout flow", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const inventoryPage = new InventoryPage(page);
-  const cartPage = new CartPage(page);
-  const checkoutPage = new CheckoutPage(page);
-
-  await loginPage.goto();
-  await loginPage.login(credentials.username, credentials.password);
-
-  await inventoryPage.expectLoaded();
+test("@regression SauceDemo complete checkout flow", async ({
+  authenticatedPage,
+  inventoryPage,
+  cartPage,
+  checkoutPage,
+}) => {
+  await authenticatedPage.waitForLoadState("domcontentloaded");
   await inventoryPage.addBackpackToCart();
   await inventoryPage.openCart();
 

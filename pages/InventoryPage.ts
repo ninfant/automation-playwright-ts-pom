@@ -16,6 +16,10 @@ export class InventoryPage {
     await this.page.getByTestId("add-to-cart-sauce-labs-backpack").click();
   }
 
+  async addProductToCartByTestId(productTestId: string): Promise<void> {
+    await this.page.getByTestId(productTestId).click();
+  }
+
   async expectCartCount(count: number): Promise<void> {
     await expect(this.page.getByTestId("shopping-cart-badge")).toHaveText(
       String(count),

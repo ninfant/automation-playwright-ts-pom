@@ -3,7 +3,7 @@
 [![Playwright Tests](https://github.com/ninfant/automation-playwright-ts-pom/actions/workflows/playwright.yml/badge.svg)](https://github.com/ninfant/automation-playwright-ts-pom/actions/workflows/playwright.yml)
 
 End-to-end QA automation project for SauceDemo using Playwright, TypeScript, and Page Object Model (POM).  
-The goal is to demonstrate maintainable test architecture, CI execution, and practical failure debugging.
+The goal is to demonstrate maintainable UI + API test architecture, CI execution, and practical failure debugging.
 
 ## Tech Stack
 
@@ -20,6 +20,8 @@ The goal is to demonstrate maintainable test architecture, CI execution, and pra
 - Add product to cart and validate cart badge
 - Logout flow from inventory page
 - End-to-end checkout completion flow
+- API login token retrieval (`POST /auth/login`)
+- API cart retrieval by user (`GET /carts/user/:id`)
 
 ## Why This Architecture
 
@@ -48,6 +50,8 @@ The goal is to demonstrate maintainable test architecture, CI execution, and pra
 ├── scripts/
 │   └── run-and-alert.js
 ├── tests/
+│   ├── api/
+│   │   └── dummyjson.api.spec.ts
 │   ├── saucedemo-cart.spec.ts
 │   ├── saucedemo-checkout.spec.ts
 │   ├── saucedemo-invalid-login.spec.ts
@@ -88,6 +92,7 @@ The goal is to demonstrate maintainable test architecture, CI execution, and pra
 - `npm run test:smoke:all-browsers`: run `@smoke` tests on all browsers
 - `npm run test:regression`: run `@regression` tests on Chromium
 - `npm run test:regression:all-browsers`: run `@regression` tests on all browsers
+- `npm run test:api`: run API tests (DummyJSON) with Playwright request context
 - `npm run test:headed`: run all tests in headed mode
 - `npm run test:ui`: run tests with Playwright UI mode
 - `npm run test:debug`: run debug mode for step-by-step inspection
@@ -114,5 +119,6 @@ The alert is triggered only when the smoke test fails.
 
 - CI workflow: `.github/workflows/playwright.yml`
 - Tagged execution model: smoke on PRs, cross-browser regression on pushes
+- API validation layer: Playwright `request.newContext()` tests in `tests/api/`
 - Example screenshots: `after-success.png`, `before-failure.png`
 - Scalable test architecture: page objects + reusable test data + isolated specs

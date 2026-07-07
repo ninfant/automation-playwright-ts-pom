@@ -28,9 +28,17 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npm run test:smoke
 
+      - name: Run API suite on pull requests
+        if: github.event_name == 'pull_request'
+        run: npm run test:api
+
       - name: Run regression suite on pushes
         if: github.event_name == 'push'
         run: npm run test:regression:all-browsers
+
+      - name: Run API suite on pushes
+        if: github.event_name == 'push'
+        run: npm run test:api
 
       - name: Upload Playwright report
         if: always()

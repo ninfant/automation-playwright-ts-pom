@@ -48,3 +48,12 @@ export const checkoutData = {
   lastName: "Portfolio",
   postalCode: "10001",
 };
+
+export const apiCredentials = {
+  username: "emilys",
+  password: "emilyspass",
+};
+
+export const apiCartScenario = {
+  userId: 1,
+};
